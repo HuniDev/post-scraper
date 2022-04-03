@@ -15,7 +15,7 @@ app.get('/', (req, res) => {
 
 app.get('/prompts', (req, res) => {
 	let page = 0;
-	while (page <= 350) {
+	while (page <= 210) {
 		axios
 			.get(
 				`https://writing-prompt-s.tumblr.com/tagged/writing%20prompts/page/${page++}`
