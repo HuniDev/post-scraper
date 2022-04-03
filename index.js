@@ -32,5 +32,6 @@ app.get('/prompts', (req, res) => {
 				});
 			});
 	}
+	prompts.forEach((o, i) => (o.id = i + 1));
 	res.json(prompts);
 });
