@@ -14,18 +14,23 @@ app.get('/', (req, res) => {
 });
 
 app.get('/prompts', (req, res) => {
-	axios
-		.get('https://writing-prompt-s.tumblr.com/tagged/writing%20prompts')
-		.then(response => {
-			const html = response.data;
-			const $ = cheerio.load(html);
+	let page = 0;
+	while (page <= 350) {
+		axios
+			.get(
+				`https://writing-prompt-s.tumblr.com/tagged/writing%20prompts/page/${page++}`
+			)
+			.then(response => {
+				const html = response.data;
+				const $ = cheerio.load(html);
 
-			$('p', html).each(function () {
-				const prompt = $(this).text();
-				prompts.push({
-					prompt,
+				$('p', html).each(function () {
+					const prompt = $(this).text();
+					prompts.push({
+						prompt,
+					});
 				});
 			});
-		});
+	}
 	res.json(prompts);
 });
